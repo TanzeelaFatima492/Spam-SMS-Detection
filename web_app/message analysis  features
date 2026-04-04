@@ -1,0 +1,116 @@
+# Install required libraries (run once if needed)
+!pip install pandas matplotlib seaborn wordcloud scikit-learn requests
+
+# Import libraries
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from wordcloud import WordCloud
+from sklearn.metrics import roc_curve, auc
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
+import zipfile
+import requests
+from io import BytesIO
+
+# -------------------------------
+# Load dataset (FINAL FIX - WORKING)
+# -------------------------------
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/00228/smsspamcollection.zip"
+
+# Download zip file
+response = requests.get(url)
+zip_file = zipfile.ZipFile(BytesIO(response.content))
+
+# Read dataset file inside zip
+df = pd.read_csv(zip_file.open('SMSSpamCollection'), sep='\t', header=None)
+
+# Set column names
+df.columns = ['label', 'message']
+
+# Clean labels
+df['label'] = df['label'].str.strip()
+
+# Check data
+print(df.head())
+
+# -------------------------------
+# 1. EDA (Class Distribution)
+# -------------------------------
+print("\nClass Count:\n", df['label'].value_counts())
+
+sns.countplot(x='label', data=df)
+plt.title("Spam vs Ham Distribution")
+plt.show()
+
+# -------------------------------
+# 2. Message Length Analysis
+# -------------------------------
+df['length'] = df['message'].apply(len)
+
+sns.histplot(data=df, x='length', hue='label', bins=50)
+plt.title("Message Length Distribution")
+plt.show()
+
+# -------------------------------
+# 3. Word Clouds
+# -------------------------------
+spam_words = ' '.join(df[df['label'] == 'spam']['message'])
+ham_words = ' '.join(df[df['label'] == 'ham']['message'])
+
+# Spam word cloud
+spam_wc = WordCloud(width=500, height=500).generate(spam_words)
+plt.imshow(spam_wc)
+plt.title("Spam Word Cloud")
+plt.axis('off')
+plt.show()
+
+# Ham word cloud
+ham_wc = WordCloud(width=500, height=500).generate(ham_words)
+plt.imshow(ham_wc)
+plt.title("Ham Word Cloud")
+plt.axis('off')
+plt.show()
+
+# -------------------------------
+# 4. ROC Curve (Simple Model)
+# -------------------------------
+df['label_num'] = df['label'].map({'ham': 0, 'spam': 1})
+
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(df['message'])
+y = df['label_num']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+model = LogisticRegression(max_iter=1000)
+model.fit(X_train, y_train)
+
+y_prob = model.predict_proba(X_test)[:, 1]
+
+fpr, tpr, _ = roc_curve(y_test, y_prob)
+roc_auc = auc(fpr, tpr)
+
+plt.plot(fpr, tpr, label='ROC curve (area = %0.2f)' % roc_auc)
+plt.plot([0, 1], [0, 1], linestyle='--')
+plt.xlabel('False Positive Rate')
+plt.ylabel('True Positive Rate')
+plt.title('ROC Curve')
+plt.legend()
+plt.show()
+
+# -------------------------------
+# 5. Feature Importance
+# -------------------------------
+feature_names = vectorizer.get_feature_names_out()
+coefficients = model.coef_[0]
+
+top_words = sorted(zip(coefficients, feature_names), reverse=True)[:10]
+
+words = [w for c, w in top_words]
+scores = [c for c, w in top_words]
+
+plt.barh(words, scores)
+plt.title("Top Important Words (Spam Detection)")
+plt.show()
