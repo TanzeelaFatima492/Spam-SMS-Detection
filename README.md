@@ -1,156 +1,172 @@
-#🛡️ SPAM SHIELD - AI-POWERED SPAM DETECTION SYSTEM
+# 🛡️ Spam Shield
 
-A Machine Learning system that detects spam messages with 98.57% accuracy using NLP + Random Forest
+## AI-Powered Spam Detection System
 
----
-
-📋 PROJECT OVERVIEW
-
-This project builds an intelligent system that automatically identifies whether a message is SPAM or HAM (legitimate). It combines Natural Language Processing (NLP) to understand text and Random Forest to make accurate predictions.
-
-How It Works: User Message → NLP Cleaning → TF-IDF Numbers → Random Forest → SPAM/HAM
+> A Machine Learning system that detects spam messages with **98.57% accuracy** using NLP + Random Forest
 
 ---
 
-👥 TEAM MEMBERS
+## 📋 Table of Contents
+
+- [Project Overview](#project-overview)
+- [Team Members](#team-members)
+- [Dataset](#dataset)
+- [Technologies Used](#technologies-used)
+- [Results](#results)
+- [Flask Web App](#flask-web-app)
+- [Project Structure](#project-structure)
+- [How to Run](#how-to-run)
+- [Test the Model](#test-the-model)
+- [Conclusion](#conclusion)
+- [Links](#links)
+- [Acknowledgments](#acknowledgments)
+- [Contact](#contact)
+
+---
+
+## 📋 Project Overview
+
+This project builds an intelligent system that automatically identifies whether a message is **SPAM** or **HAM** (legitimate).
+
+### How It Works
+User Message → NLP Cleaning → TF-IDF Numbers → Random Forest → SPAM/HAM
+
+
+### Problem Statement
+
+Millions of spam messages are sent daily. This system helps filter them automatically with high accuracy.
+
+---
+
+## 👥 Team Members
 
 | Name | Roll Number | Role |
 |------|-------------|------|
-| Tanzeela Fatima | 12 | NLP, Model Building, Backend, Flask Web App |
-| Atif Zaheer | 7 | EDA, Visualizations, Frontend, Presentation |
+| **Tanzeela Fatima** | 12 | NLP, Model Building, Backend, Flask Web App |
+| **Atif Zaheer** | 7 | EDA, Visualizations, Frontend, Presentation |
+
+### Contribution Breakdown
+
+| Task | Owner |
+|------|-------|
+| Data Preprocessing | Tanzeela |
+| Feature Engineering | Tanzeela |
+| Model Training & Evaluation | Tanzeela |
+| Flask Web App | Tanzeela |
+| EDA & Visualizations | Atif |
+| Presentation & Panaflex | Atif |
 
 ---
 
-📊 DATASET
+## 📊 Dataset
 
-Source: SMS Spam Collection (UCI)
+**Source:** SMS Spam Collection v.1 (UCI Machine Learning Repository)
 
-- Total messages: 5,574
-- Spam messages: 747 (13.4%)
-- Ham messages: 4,827 (86.6%)
+| Feature | Value |
+|---------|-------|
+| Total messages | 5,574 |
+| Spam messages | 747 (13.4%) |
+| Ham messages | 4,827 (86.6%) |
 
-Dataset Link: https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection
+### Dataset Links
+
+- 🔗 [UCI Repository](https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection)
+- 🔗 [Direct Download](https://raw.githubusercontent.com/justmarkham/pycon-2016-tutorial/master/data/sms.tsv)
 
 ---
 
-🛠️ TECHNOLOGIES USED
+## 🛠️ Technologies Used
+
+### Core Technologies
 
 | Category | Tools |
 |----------|-------|
-| Data Processing | Pandas, NumPy, re |
-| Machine Learning | Scikit-learn |
-| Web Framework | Flask |
-| Development | Google Colab, VS Code |
-| Version Control | Git, GitHub |
+| **Data Processing** | Pandas, NumPy, re |
+| **Machine Learning** | Scikit-learn |
+| **Web Framework** | Flask |
+| **Development** | Google Colab, VS Code |
+| **Version Control** | Git, GitHub |
+
+### NLP Techniques Used
+
+| Technique | Purpose |
+|-----------|---------|
+| Lowercase | Convert all text to same case |
+| Remove punctuation | Clean special characters |
+| Remove numbers | Remove digits |
+| TF-IDF | Convert text to numbers |
 
 ---
 
-📈 RESULTS
+## 📈 Results
 
-| Model | Accuracy |
-|-------|----------|
-| Logistic Regression | 98.21% |
-| Random Forest | 98.57% 🏆 |
-| SVM | 98.30% |
+### Model Performance Comparison
 
-Confusion Matrix - Random Forest:
+| Model | Accuracy | Precision | Recall | F1-Score |
+|-------|----------|-----------|--------|----------|
+| Logistic Regression | 98.21% | 0.9714 | 0.9524 | 0.9618 |
+| **Random Forest** | **98.57%** | **0.9800** | 0.9524 | **0.9660** |
+| SVM | 98.30% | 0.9762 | 0.9524 | 0.9641 |
+
+### Confusion Matrix - Random Forest
 
 | | Predicted Ham | Predicted Spam |
 |---|---------------|----------------|
-| Actual Ham | 960 | 6 |
-| Actual Spam | 7 | 142 |
+| **Actual Ham** | 960 | 6 |
+| **Actual Spam** | 7 | 142 |
 
-- True Negatives (Ham correct): 960
-- False Positives (Ham as Spam): 6
-- False Negatives (Spam as Ham): 7
-- True Positives (Spam correct): 142
+### Key Metrics
 
-Best Model: Random Forest with 98.57% accuracy
+- ✅ **True Negatives** (Ham correct): 960
+- ❌ **False Positives** (Ham as Spam): 6
+- ❌ **False Negatives** (Spam as Ham): 7
+- ✅ **True Positives** (Spam correct): 142
+
+### Key Findings
+
+- Random Forest outperformed other algorithms with **98.57% accuracy**
+- Words like "free", "win", "click" are strong spam indicators
+- TF-IDF with n-grams (1,2) performed better than unigrams alone
+- Only **13 misclassifications** out of 1,115 test messages
 
 ---
 
-🌐 FLASK WEB APP
+## 🌐 Flask Web App
 
-Features:
-- Real-time SPAM/HAM detection
-- Confidence score display
-- One-click test examples
-- Modern UI with animations
+### Features
 
-How to Run:
+| Feature | Description |
+|---------|-------------|
+| **Real-time Prediction** | Instant SPAM/HAM detection |
+| **Confidence Score** | Shows prediction confidence percentage |
+| **Example Messages** | One-click test examples |
+| **Modern UI** | Gradient background, smooth animations |
+| **Responsive Design** | Works on mobile and desktop |
 
+
+### How to Run Web App
+
+```bash
 cd spam_web_app
 pip install -r requirements.txt
 python create_model.py
 python app.py
-
 Then open: http://127.0.0.1:5000
 
----
-
-📁 PROJECT STRUCTURE
-
 Spam-Email-Detection/
+│
 ├── spam_web_app/
-│   ├── app.py
-│   ├── create_model.py
-│   ├── best_model.pkl
-│   ├── tfidf_vectorizer.pkl
-│   └── requirements.txt
+│   ├── app.py                 # Flask web application
+│   ├── create_model.py        # Train and save model
+│   ├── best_model.pkl         # Trained Random Forest
+│   ├── tfidf_vectorizer.pkl   # TF-IDF converter
+│   └── requirements.txt       # Dependencies
+│
 ├── notebooks/
 │   ├── 01_data_preprocessing.ipynb
 │   ├── 02_feature_engineering.ipynb
 │   ├── 03_model_training.ipynb
 │   └── 04_evaluation.ipynb
-└── README.md
-
----
-
-🎯 TEST THE MODEL
-
-| Message | Result |
-|---------|--------|
-| FREE MONEY! Click here to win $1000! | 🚨 SPAM |
-| Hey, are we meeting for lunch? | ✅ SAFE |
-| URGENT: Your account is compromised! | 🚨 SPAM |
-| Can you send me the assignment? | ✅ SAFE |
-| Congratulations! You won a free iPhone! | 🚨 SPAM |
-
----
-
-📝 CONCLUSION
-
-The Random Forest model achieved the best performance with 98.57% accuracy, correctly identifying 142 out of 149 spam messages and 960 out of 966 ham messages.
-
-The Flask web app provides a user-friendly interface to test the model in real-time, making it accessible for demonstration and practical use.
-
----
-
-🔗 LINKS
-
-- GitHub Repository: https://github.com/TanzeelaFatima492/Spam-Email-Detection
-- Dataset: https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection
-
----
-
-🙏 ACKNOWLEDGMENTS
-
-- Mam Naila – Course Instructor
-- Atif Zaheer – Project Partner
-
----
-
-📧 CONTACT
-
-| Name | Roll Number |
-|------|-------------|
-| Tanzeela Fatima | 12 |
-| Atif Zaheer | 7 |
-
----
-
-**Course:** Machine Learning
-**Submission Date:** 20-04-26
-**Supervisor:** Mam Naila
-
-⭐ Star this repository if you found it helpful!
+│
+├── README.md
+└── requirements.txt
