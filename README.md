@@ -1,40 +1,115 @@
-SPAM SHIELD - AI SPAM DETECTION
+# SPAM SHIELD – AI Spam Detection System
 
-Accuracy: 98.57% | Model: Random Forest
+## Project Overview
 
-TEAM:
-Tanzeela Fatima (Roll 12) - Model, Web App, Backend
-Atif Zaheer (Roll 7) - EDA, Visuals, Presentation
+SPAM SHIELD is an AI-based SMS spam detection system that classifies messages as SPAM or HAM (safe).  
+It is built using Machine Learning techniques and trained on the UCI SMS Spam Collection dataset.
 
-DATASET:
-SMS Spam Collection (UCI)
-5,574 messages (747 spam, 4,827 ham)
+---
 
-RESULTS:
-Logistic Regression: 98.21%
-Random Forest: 98.57% (BEST)
-SVM: 98.30%
+## Team Members
 
-Confusion Matrix (Random Forest):
-- Ham correct: 960
-- Ham as Spam: 6
-- Spam as Ham: 7
-- Spam correct: 142
+- Tanzeela Fatima (Roll No: 12)  
+  Role: Model Development, Web Application, Backend Integration  
 
-HOW TO RUN:
-cd spam_web_app
-pip install -r requirements.txt
-python create_model.py
-python app.py
-Open http://127.0.0.1:5000
+- Atif Zaheer (Roll No: 7)  
+  Role: Data Analysis (EDA), Visualization, Presentation  
 
-TEST:
-"FREE MONEY!" → SPAM
-"Hey, meeting?" → SAFE
+---
 
-LINKS:
-GitHub: https://github.com/TanzeelaFatima492/Spam-Email-Detection
-Dataset: https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection
+## Dataset
 
-COURSE:
-Machine Learning | Submission: 20-04-26 | Supervisor: Mam Naila
+- Source: UCI SMS Spam Collection Dataset  
+- Total Messages: 5,574  
+  - Spam: 747  
+  - Ham: 4,827  
+
+---
+
+## Machine Learning Models
+
+- Logistic Regression → 98.21%  
+- SVM → 98.30%  
+- Random Forest → 98.57% (Best Model)  
+
+---
+
+## Confusion Matrix (Random Forest)
+
+- Correct Ham Predictions: 960  
+- Ham misclassified as Spam: 6  
+- Spam misclassified as Ham: 7  
+- Correct Spam Predictions: 142  
+
+---
+
+## How to Run the Project
+
+1. Clone the repository:
+   git clone https://github.com/TanzeelaFatima492/Spam-Email-Detection
+
+2. Move into project folder:
+   cd spam_web_app
+
+3. Install dependencies:
+   pip install -r requirements.txt
+
+4. Train the model:
+   python create_model.py
+
+5. Run the application:
+   python app.py
+
+6. Open in browser:
+   http://127.0.0.1:5000
+
+---
+
+## Testing Examples
+
+- "FREE MONEY!" → SPAM  
+- "Hey, meeting?" → SAFE  
+
+---
+
+## Technologies Used
+
+- Python  
+- Scikit-learn  
+- Pandas  
+- NumPy  
+- Flask  
+- HTML / CSS  
+
+---
+
+## Links
+
+- GitHub Repository: https://github.com/TanzeelaFatima492/Spam-Email-Detection  
+- Dataset: https://archive.ics.uci.edu/ml/datasets/SMS+Spam+Collection  
+
+---
+
+## Course Information
+
+- Course: Machine Learning  
+- Submission Date: 20-04-2026  
+- Supervisor: Mam Naila  
+
+---
+
+## Features
+
+- Real-time spam detection  
+- Machine Learning based classification  
+- Web interface using Flask  
+- High accuracy model  
+
+---
+
+## Future Improvements
+
+- Deploy on cloud (AWS / Render / Heroku)  
+- Add Deep Learning models (LSTM / BERT)  
+- Improve UI design  
+- Email spam detection support  
